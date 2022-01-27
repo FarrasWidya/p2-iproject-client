@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-slate-300">
     <form @submit.prevent="submitComment" action="">
       <label for="">Make a comment !</label><br />
       <textarea
@@ -36,6 +36,12 @@ export default {
       })
       .then(()=>{
          this.loopingComments()
+         this.$swal({
+          title: "YEAY !",
+          text: "Comment Success",
+          icon: "success",
+          confirmButtonText: "Cool",
+        });
       })
     },
     loopingComments(){

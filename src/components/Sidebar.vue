@@ -1,5 +1,5 @@
 <template>
-  <div class=" md:grid md:grid-cols-6  max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl border-black bg-black">
+  <div class="ml-2 md:grid md:grid-cols-6  max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl border-black bg-black">
     <section class="sidebar m-2 md:col-span-1">
       <div
         class="
