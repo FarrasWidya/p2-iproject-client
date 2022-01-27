@@ -1,63 +1,61 @@
 <template>
   <div>
     <navbar />
-    <form
-      action=""
-      class="bg-slate-300 "
-      @submit.prevent="postMeme"
-    >
-      <label class="m-2" for="">Title</label><br />
-      <input
-        type="text"
-        v-model="addTitle"
-        class="border-2 border-black"
-      /><br />
-      <label for="">Top Text</label><br />
-      <input
-        v-model="topText"
-        type="text"
-        name=""
-        class="border-2 border-black"
-        id=""
-      /><br />
-      <label for="">Bottom Text</label><br />
-      <input
-        v-model="bottomText"
-        type="text"
-        name=""
-        class="border-2 border-black"
-        id=""
-      /><br />
-      <label class="m-2" for="">Content</label><br />
-      <div
-        class="
-          bg-white
-          max-w-lg
-          mx-auto
-          p-8
-          md:p-12
-          my-10
-          rounded-lg
-          shadow-2xl
-        "
-      >
-        <div v-for="template in templates" :key="template.id">
-          <input type="radio" :value="template.id" v-model="inputMeme" />
-          <img class="flex" width="200px" :src="template.url" alt="" />
-        </div>
-      </div>
-      <label for="">Tag</label><br />
-      <select v-model="addTag" class="border-2 border-black" name="" id="">
-        <option value="1">Animal</option>
-        <option value="2">Anime</option>
-        <option value="3">Funny</option>
-        <option value="4">Gaming</option>
-        <option value="5">Random</option></select
-      ><br />
-      <button class="border-2 border-black m-2 rounded">
-        <p class="m-1">Submit</p>
-      </button>
-    </form>
+
+ <div class="bg-slate-300 min-h-screen flex items-center">
+   <div class="w-full">
+     <h2 class="text-center text-slate-700  font-bold text-2xl uppercase mt-5 mb-5 ">MAKE YOUR OWN MEME !</h2>
+     <div class="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2">
+       <form action=""  @submit.prevent="postMeme">
+
+         <div class="mb-5">
+           <label for="name" class="block mb-2 font-bold text-gray-600">Title</label>
+           <input  v-model="addTitle" type="text" id="name" name="name" placeholder="Step 1:Fill the title !" class="border border-gray-300 shadow p-3 w-full rounded mb-">
+         </div>
+         <div>
+           <div>
+             <label for="name" class="block mb-2 font-bold text-gray-600">Template</label>
+             <label for="name" class="block mb-2 font-bold text-gray-400">Step two: Choose the template !</label>
+           </div>
+           <div class="flex-col">
+             <div class="grid grid-cols-4">
+             <div v-for="template in templates" :key="template.id" class="border border-gray-300 shadow mt-2 mb-2 p-2 w-full rounded  justify-between  shadow-2x1">
+                <input  type="radio"  :value="template.id" v-model="inputMeme" />
+                <img class="border-black border-2 flex items-center" width="150px" :src="template.url" alt="" />
+              </div>
+             </div>
+           </div>
+         </div>
+
+         <div class="mb-5">
+           <label for="twitter" class="block mb-2 font-bold text-gray-600">Upper Text</label>
+           <input  v-model="topText" type="text" id="twitter" name="twitter" placeholder="Step 3:Fill the upper text !" class="border border-gray-300 shadow p-3 w-full rounded mb-">  
+         </div>
+
+           <div class="mb-5">
+           <label for="twitter" class="block mb-2 font-bold text-gray-600">Bottom Text</label>
+           <input v-model="bottomText" type="text" id="twitter" name="twitter" placeholder="Step 4:Fill the bottom text !" class="border border-gray-300 shadow p-3 w-full rounded mb-">
+         </div>
+
+
+         <div class="mb-5">
+           <label for="twitter" class=" block mb-2 font-bold text-gray-600">Tag</label>
+           <select  v-model="addTag" name="" class="border border-gray-300 shadow p-3 w-full rounded mb-" id="">
+             <option value="" disabled > <p  class="text-slate-200" > Step 5:Choose the tag !</p></option>
+           <option class="border border-gray-300 shadow p-3 w-full rounded mb-" value="1">Animals</option>
+           <option class="border border-gray-300 shadow p-3 w-full rounded mb-" value="2">Anime</option>
+           <option class="border border-gray-300 shadow p-3 w-full rounded mb-" value="3">Funny</option>
+           <option class="border border-gray-300 shadow p-3 w-full rounded mb-" value="4">Gaming</option>
+           <option class="border border-gray-300 shadow p-3 w-full rounded mb-" value="5">Random</option>
+           </select>
+         </div>
+
+       
+         <button class="block w-full bg-black hover:bg-yellow-500 text-white font-bold p-4 rounded-lg">Submit</button>
+       </form>
+     </div>
+   </div>
+ </div>
   </div>
 </template>
 
@@ -80,20 +78,24 @@ export default {
       return this.$store.state.templates;
     },
   },
-  methods:{
-  postMeme(){
-    let payload ={
-      inputMeme : this.inputMeme,
-      addTitle : this.addTitle,
-      topText : this.topText,
-      bottomText : this.bottomText,
-      addTag : this.addTag
-    }
-      this.$store.dispatch('addNewMeme',payload)
-      this.$router.push('/')
-      
-  }
-
+  methods: {
+    postMeme() {
+      let payload = {
+        inputMeme: this.inputMeme,
+        addTitle: this.addTitle,
+        topText: this.topText,
+        bottomText: this.bottomText,
+        addTag: this.addTag,
+      };
+      this.$store.dispatch("addNewMeme", payload);
+      this.$router.push("/")
+      this.$swal({
+          title: "Woohooooo you created new post !",
+          text: "Create Success",
+          icon: "success",
+          confirmButtonText: "Cool",
+        });
+    },
   },
   created() {
     this.$store.dispatch("getTemplateForAdd");

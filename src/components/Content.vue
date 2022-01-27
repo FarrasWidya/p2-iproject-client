@@ -6,16 +6,16 @@
       :key="content.id"
     >
       <div>
-        <div class="flex justify-start text-slate-300 ">
-          {{ content.Tag.name }}
+        <div class="flex justify-start text-slate-700">
+          <p>Tags: {{ content.Tag.name }}</p>
         </div>
-        <div class="flex justify-start text-slate-300">
-          {{ content.User.username }}
+        <div class="flex justify-start text-slate-700 italic">
+         <p>Created by : @{{ content.User.username }}</p> 
         </div>
-        <div class="border-black rounded border-2 mt-2 mb-2">{{ content.title }}</div>
+        <div class="border border-2 border-black mt-2 mb-2 rounded">{{ content.title }}</div>
       </div>
       <div>
-        <img class="border-2 rounded border-black" width="500px" v-on:click.prevent="toDetail(content.id)" :src="content.content" alt="" />
+        <img class="border-2 rounded border-black hover:shadow-2xl cursor-pointer" width="500px" v-on:click.prevent="toDetail(content.id)" :src="content.content" alt="" />
       </div>
 
     </div>

@@ -1,7 +1,7 @@
 <template>
 <div>
     <navbar />
-  <div class="parent md:h-screen md:grid md:grid-cols-6  bg-slate-300">
+  <div class="parent  md:grid md:grid-cols-6  bg-slate-300">
     <sidebar/>
     <Content/>
   </div>

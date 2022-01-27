@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import router from '../router/index'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     url: 'https://meme-this-now.herokuapp.com',
+    url2:'http://localhost:3000',
     logged: false,
     contents: [],
     contentDetail: {},
@@ -137,13 +139,27 @@ export default new Vuex.Store({
     },
     async postUpvote(context,payload){
       try {
-        await axios.post(`${context.state.url}/contents/${payload}`,{},{
+        const response = await axios.post(`${context.state.url}/contents/${payload}`,{},{
           headers:{
             access_token:localStorage.access_token
           }
         })
+        if (response.data) {
+          context.dispatch("getContentById", payload)
+          Vue.swal({
+            title: "Very nice",
+            text: "Upvote Success",
+            icon: "success",
+            confirmButtonText: "Cool",
+          });
+        }
       } catch (err) {
-       
+        Vue.swal({
+          title: "You shall not upvote",
+          text: "Upvote failed because you already upvote it",
+          icon: "error",
+          confirmButtonText: "Cool",
+        });
         console.log(err)
       }
     }
@@ -166,6 +182,34 @@ export default new Vuex.Store({
        const response = await axios.get(`${context.state.url}/timezones`)
         context.commit('MUTATE_TIMEZONE', response.data)
       } catch (err) {
+        console.log(err)
+      }
+    },
+    async deleteContent(context,payload){
+      try {
+        
+        const response = await axios.delete(`${context.state.url}/contents/${payload}`,{
+          headers:{
+            access_token:localStorage.access_token
+          }
+        })
+
+        if (response.data) {
+         router.push('/')
+         Vue.swal({
+          title: "Hope you dont regret it !",
+          text: "delete Success",
+          icon: "success",
+          confirmButtonText: "Cool",
+        });
+        }
+      } catch (err) {
+        Vue.swal({
+          title: "You shall not delete",
+          text: "You can't delete other people's post",
+          icon: "error",
+          confirmButtonText: "Cool",
+        });
         console.log(err)
       }
     }
