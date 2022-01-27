@@ -138,7 +138,12 @@ export default {
         })
         .then(() => {
           if (localStorage.access_token) {
-            
+            this.$swal({
+          title: "VERY NICE !",
+          text: "Login Success",
+          icon: "success",
+          confirmButtonText: "Cool",
+        });
             this.$router.push("/");
           }
         })

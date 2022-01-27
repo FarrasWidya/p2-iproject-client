@@ -216,6 +216,12 @@ export default {
           bio: this.registerBio,
         })
         .then(() => {
+          this.$swal({
+          title: "GO SIGN IN NOW !",
+          text: "Register Success",
+          icon: "success",
+          confirmButtonText: "Cool",
+        });
           this.$router.push("/login");
         })
         .catch((err) => {

@@ -82,6 +82,7 @@
 </template>
 
 <script>
+
 export default {
   name: "Navbar",
   computed: {
@@ -107,12 +108,21 @@ export default {
     },
     toLogout() {
       localStorage.clear();
+      this.$swal({
+          title: "BYEBYE !",
+          text: "Logout Success",
+          icon: "success",
+          confirmButtonText: "Cool",
+        });
+      
       return this.$router.push("/login").catch(()=>{})
     },
   },
   created() {
     if (localStorage.access_token) {
       this.$store.commit('MUTATE_LOGGED',true);
+    }else{
+       this.$store.commit('MUTATE_LOGGED',false);
     }
 
     this.$store.dispatch("getTimezone");
